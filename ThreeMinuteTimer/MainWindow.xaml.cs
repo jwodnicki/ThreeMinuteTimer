@@ -34,7 +34,7 @@ namespace ThreeMinuteTimer
 			{
 				while (deciSecondsRemaining-- > 0)
 				{
-					Application.Current.Dispatcher.Invoke(() => textBlock.Text = "" + deciSecondsRemaining / 10);
+					Application.Current.Dispatcher.Invoke(() => textBlock.Text = (deciSecondsRemaining / 10).ToString());
 					Thread.Sleep(100);
 					int progressPercent = 100 * deciSecondsRemaining / decisecondsToRun;
 					andre.ReportProgress(progressPercent);
@@ -51,7 +51,11 @@ namespace ThreeMinuteTimer
 			andre.RunWorkerCompleted += (sender, e) =>
 			{
 				MessageBox.Show(cookie.GetRandom());
-				Application.Current.Shutdown();
+				try
+				{
+					Application.Current.Shutdown();
+				}
+				catch { }
 			};
 			andre.RunWorkerAsync();
 		}
